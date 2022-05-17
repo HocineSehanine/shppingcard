@@ -4,7 +4,6 @@ const fetchProducts = async () => {
     const firstPromise = await fetch(url);
     const secondPromise = await firstPromise.json();
     const data = secondPromise.results;
-    // return Object.entries(data);
     return data;
   } catch (error) {
     return error;
