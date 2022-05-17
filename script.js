@@ -67,5 +67,13 @@ const products = async () => {
   });
 };
 products();
-
+const emptyFunc = () => {
+  const cartItems = document.getElementsByClassName('cart__item');
+  const cart = Object.entries(cartItems);
+  cart.forEach((cI) => {
+    cI[1].remove();
+  });
+};
+const empty = document.getElementsByClassName('empty-cart')[0];
+empty.addEventListener('click', emptyFunc);
 window.onload = () => { };
