@@ -1,3 +1,15 @@
+const totalPrice = () => {
+  const somaTudo = () => {
+    const q = [];
+    const r = document.querySelector('.cart__items');
+    const ar = r.childNodes;
+    ar.forEach((i) => q.push(parseFloat(i.innerHTML.split('PRICE: $')[1])));
+    const total = q.reduce((a, b) => { let p = a; p += b; return p; }, 0);
+    return total;
+  };
+  document.querySelector('.total-price').innerText = `Subtotal: R$ ${somaTudo()}`;
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -43,7 +55,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 const items = async (itemId) => {
   const i = await fetchItem(itemId);
   const addedOl = await document.getElementsByClassName('cart__items')[0];
-  addedOl.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));   
+  addedOl.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
+  totalPrice();
 };
 function addItem(event) {
   const item = event.target.parentElement;
@@ -54,7 +67,7 @@ const products = async () => {
   const produtos = await fetchProducts();
   const productsArray = Object.entries(produtos);
   const dataBase = [];
-  productsArray.forEach(async (e) => dataBase.push(e[1]));
+  productsArray.forEach((e) => dataBase.push(e[1]));
   dataBase.forEach((c) => {
     const i = document.getElementsByClassName('items')[0];
     i.appendChild(createProductItemElement({ sku: c.id, name: c.title, image: c.thumbnail }));
@@ -67,7 +80,9 @@ const products = async () => {
   });
 };
 products();
+
 const emptyFunc = () => {
+  document.querySelector('.total-price').innerText = 'Subtotal: R$ 0,00';
   const cartItems = document.getElementsByClassName('cart__item');
   const cart = Object.entries(cartItems);
   cart.forEach((cI) => {
@@ -76,4 +91,5 @@ const emptyFunc = () => {
 };
 const empty = document.getElementsByClassName('empty-cart')[0];
 empty.addEventListener('click', emptyFunc);
+
 window.onload = () => { };
