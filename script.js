@@ -1,13 +1,14 @@
 const totalPrice = async () => {
-  const somaTudo = () => {
+  const somaTudo = async () => {
     const q = [];
     const r = document.querySelector('.cart__items');
     const ar = r.childNodes;
     ar.forEach((i) => q.push(parseFloat(i.innerHTML.split('PRICE: $')[1])));
-    const total = q.reduce((a, b) => { let p = a; p += b; return p; }, 0);
+    const total = await q.reduce((a, b) => { let p = a; p += b; return p; }, 0);
     return total;
   };
-  document.querySelector('.total-price').innerText = `Subtotal: R$ ${somaTudo()}`;
+  const total = await somaTudo();
+  document.querySelector('.total-price').innerText = `Subtotal: R$ ${total}`;
 };
 
 function createProductImageElement(imageSource) {
@@ -44,7 +45,6 @@ function cartItemClickListener(event) {
   event.target.remove();
   totalPrice();
 }
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -57,7 +57,7 @@ const items = async (itemId) => {
   const i = await fetchItem(itemId);
   const addedOl = await document.getElementsByClassName('cart__items')[0];
   addedOl.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
-  await totalPrice();
+  totalPrice();
 };
 function addItem(event) {
   const item = event.target.parentElement;
@@ -83,7 +83,8 @@ const products = async () => {
 products();
 
 const emptyFunc = () => {
-  document.querySelector('.total-price').innerText = 'Subtotal: R$ 0,00';
+  document.querySelector('.total-price').innerText = 'Subtotal: R$ 0.00';
+  // totalPrice();
   const cartItems = document.getElementsByClassName('cart__item');
   const cart = Object.entries(cartItems);
   cart.forEach((cI) => {
