@@ -1,4 +1,4 @@
-const totalPrice = () => {
+const totalPrice = async () => {
   const somaTudo = () => {
     const q = [];
     const r = document.querySelector('.cart__items');
@@ -56,7 +56,7 @@ const items = async (itemId) => {
   const i = await fetchItem(itemId);
   const addedOl = await document.getElementsByClassName('cart__items')[0];
   addedOl.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
-  totalPrice();
+  await totalPrice();
 };
 function addItem(event) {
   const item = event.target.parentElement;
