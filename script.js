@@ -44,6 +44,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.remove();
   totalPrice();
+  saveCartItems();
 }
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -58,6 +59,7 @@ const items = async (itemId) => {
   const addedOl = await document.getElementsByClassName('cart__items')[0];
   addedOl.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
   totalPrice();
+  saveCartItems();
 };
 function addItem(event) {
   const item = event.target.parentElement;
@@ -84,14 +86,16 @@ products();
 
 const emptyFunc = () => {
   document.querySelector('.total-price').innerText = 'Subtotal: R$ 0.00';
-  // totalPrice();
   const cartItems = document.getElementsByClassName('cart__item');
   const cart = Object.entries(cartItems);
   cart.forEach((cI) => {
     cI[1].remove();
   });
+  localStorage.clear();
 };
 const empty = document.getElementsByClassName('empty-cart')[0];
 empty.addEventListener('click', emptyFunc);
 
-window.onload = () => { };
+window.onload = () => { 
+  getSavedCartItems();
+};
