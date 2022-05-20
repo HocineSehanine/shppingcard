@@ -2,7 +2,7 @@ const fetchItem = async (itemId) => {
   const url = `https://api.mercadolibre.com/items/${itemId}`;
   try {
     const promise = await fetch(url);
-    const dataBase = promise.json();
+    const dataBase = await promise.json();
     return dataBase;
   } catch (error) {
     return error;
