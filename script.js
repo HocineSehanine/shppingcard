@@ -69,8 +69,8 @@ const products = async () => {
   });
     const allItems = document.getElementsByClassName('items')[0].children;
     const all = Object.entries(allItems);
-    all.forEach((l) => {
-      const btn = l[1].querySelector('button');
+    all.forEach((e) => {
+      const btn = l[e].querySelector('button');
       btn.addEventListener('click', addItem);
     });
 };
