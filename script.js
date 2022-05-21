@@ -77,7 +77,6 @@ const products = async () => {
 products();
 
 const emptyFunc = () => {
-  // document.querySelector('.total-price').innerText = 'Subtotal: R$ 0.00';
   const cartItems = document.getElementsByClassName('cart__item');
   const cart = Object.entries(cartItems);
   cart.forEach((cI) => {
@@ -85,10 +84,12 @@ const emptyFunc = () => {
   });
   localStorage.clear();
 };
-const empty = document.getElementsByClassName('empty-cart')[0];
+const empty = document.querySelector('.empty-cart');
 empty.addEventListener('click', emptyFunc);
 
-window.onload = () => { 
+document.querySelector('body').appendChild(createCustomElement('div', 'loading', 'carregando...'));
+
+window.onload = async () => { 
   getSavedCartItems();
   const meuCarrinho = carrinho.children;
   const all = Object.entries(meuCarrinho);
@@ -96,4 +97,7 @@ window.onload = () => {
     const btn = l[1];
     btn.addEventListener('click', cartItemClickListener);
   });
+  document.querySelector('.loading').style.display = 'none';
+  await fetchProducts();
+  document.querySelector('.loading').remove();
 };
