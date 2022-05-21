@@ -74,7 +74,6 @@ const products = async () => {
       btn.addEventListener('click', addItem);
     });
   };
-  products();
   
   const emptyFunc = () => {
     const cartItems = document.getElementsByClassName('cart__item');
@@ -87,7 +86,9 @@ const products = async () => {
   const empty = document.getElementsByClassName('empty-cart')[0];
   empty.addEventListener('click', emptyFunc);
   
-  window.onload = () => { 
+  const bodyElement = document.querySelector('body');
+  bodyElement.appendChild(createCustomElement('div', 'loading', 'carregando...'));
+  window.onload = async () => { 
     getSavedCartItems();
     const meuCarrinho = carrinho.children;
     const all = Object.entries(meuCarrinho);
@@ -95,4 +96,7 @@ const products = async () => {
       const btn = l[1];
       btn.addEventListener('click', cartItemClickListener);
     });
+    document.querySelector('.loading').style.display = 'none';
+    await products();
+    document.querySelector('.loading').remove();
   };
