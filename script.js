@@ -54,15 +54,14 @@ const addItem = async (event) => {
   const item = await event.target.parentElement;
   const id = await getSkuFromProductItem(item);
   const i = await fetchItem(id);
-  console.log(i);
   carrinho.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
   totalPrice();
   saveCartItems();
 };
 
 const products = async () => {
-  const produtos = await fetchProducts();
-  produtos.forEach((c) => {
+  const produtos = await fetchProducts('computador');
+  produtos.results.forEach((c) => {
     const productObj = { sku: c.id, name: c.title, image: c.thumbnail };
     const i = document.querySelector('.items');
     i.appendChild(createProductItemElement(productObj));
