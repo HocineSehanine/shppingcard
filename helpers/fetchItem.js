@@ -3,7 +3,9 @@ const fetchItem = async (itemId) => {
   try {
     const promise = await fetch(url);
     const dataBase = await promise.json();
-    return dataBase;
+    if (itemId !== undefined) { return dataBase; }
+
+    if (itemId === undefined) { throw Error('You must provide an url'); }
   } catch (error) {
     return error;
   }
