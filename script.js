@@ -1,4 +1,5 @@
 const carrinho = document.querySelector('.cart__items');
+const price = document.querySelector('.total-price');
 const totalPrice = async () => {
   const somaTudo = async () => {
     const arr = [];
@@ -7,7 +8,7 @@ const totalPrice = async () => {
     return total;
   };
   const total = await somaTudo();
-  document.querySelector('.total-price').innerText = `${total}`;
+  price.innerText = `${total}`;
 };
 
 function createProductImageElement(imageSource) {
@@ -40,7 +41,9 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.remove();
   totalPrice();
-  saveCartItems();
+  const carrinhoItems = carrinho.innerHTML;
+  const precoTotal = price.innerHTML;
+  saveCartItems(carrinhoItems, precoTotal);
 }
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -56,7 +59,9 @@ const addItem = async (event) => {
   const i = await fetchItem(id);
   carrinho.appendChild(createCartItemElement({ sku: i.id, name: i.title, salePrice: i.price }));
   totalPrice();
-  saveCartItems();
+  const carrinhoItems = carrinho.innerHTML;
+  const precoTotal = price.innerHTML;
+  saveCartItems(carrinhoItems, precoTotal);
 };
 
 const products = async () => {
@@ -88,7 +93,9 @@ const products = async () => {
   const bodyElement = document.querySelector('body');
   bodyElement.appendChild(createCustomElement('div', 'loading', 'carregando...'));
   window.onload = async () => { 
-    getSavedCartItems();
+    const myCarrinho = carrinho.innerHTML;
+    const myPrice = price.innerHTML;
+    getSavedCartItems(myCarrinho, myPrice);
     const meuCarrinho = carrinho.children;
     const all = Object.entries(meuCarrinho);
     all.forEach((l) => {

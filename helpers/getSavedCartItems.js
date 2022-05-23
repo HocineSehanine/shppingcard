@@ -1,6 +1,6 @@
-const getSavedCartItems = () => {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('carrinho');
-  document.querySelector('.total-price').innerHTML = localStorage.getItem('preço');
+const getSavedCartItems = (myCarrinho, myPrice) => {
+  myCarrinho = localStorage.getItem('carrinho');
+  myPrice = localStorage.getItem('preço');
 };
 
 if (typeof module !== 'undefined') {

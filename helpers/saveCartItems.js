@@ -1,9 +1,6 @@
-const saveCartItems = () => {
-  localStorage.clear();
-  const meuCarrinho = document.querySelector('.cart__items').innerHTML;
-  const totalPrice = document.querySelector('.total-price').innerHTML;
-  localStorage.setItem('carrinho', meuCarrinho);
-  localStorage.setItem('preço', totalPrice);
+const saveCartItems = (carrinho, precoTotal) => {
+  localStorage.setItem('carrinho', carrinho);
+  localStorage.setItem('preço', precoTotal);
 };
 
 if (typeof module !== 'undefined') {
