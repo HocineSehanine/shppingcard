@@ -93,9 +93,7 @@ const products = async () => {
   const bodyElement = document.querySelector('body');
   bodyElement.appendChild(createCustomElement('div', 'loading', 'carregando...'));
   window.onload = async () => { 
-    const myCarrinho = carrinho.innerHTML;
-    const myPrice = price.innerHTML;
-    getSavedCartItems(myCarrinho, myPrice);
+    getSavedCartItems();
     const meuCarrinho = carrinho.children;
     const all = Object.entries(meuCarrinho);
     all.forEach((l) => {
