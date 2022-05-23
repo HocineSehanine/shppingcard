@@ -1,12 +1,12 @@
 const fetchItem = async (itemId) => {
   const url = `https://api.mercadolibre.com/items/${itemId}`;
   try {
-    const promise = await fetch(url);
-    const dataBase = await promise.json();
-    if (itemId !== undefined) { return dataBase; }
-
-    if (itemId === undefined) { throw Error('You must provide an url'); }
-  } catch (error) {
+    if (itemId === undefined) { throw Error('You must provide an url'); } else {
+      const promise = await fetch(url);
+      const dataBase = await promise.json();  
+      return dataBase; 
+    }
+    } catch (error) {
     return error;
   }
 };
