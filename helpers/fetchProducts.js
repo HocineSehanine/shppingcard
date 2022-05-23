@@ -8,7 +8,7 @@ const fetchProducts = async (productType) => {
               return data;
             }
       } catch (error) {
-         throw error.message;
+         return error;
       }
 };
 if (typeof module !== 'undefined') {
